@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <title>ขายหมูปิ้ง 🍢</title>
+  <style>
+    body { font-family: sans-serif; text-align: center; padding: 40px }
+    button { font-size: 20px; padding: 10px 20px }
+  </style>
+</head>
+<body>
+
+<h1>🍢 หมูปิ้งไม้ละ 10 บาท</h1>
+
+<button onclick="qty--">-</button>
+<span id="q">1</span>
+<button onclick="qty++">+</button>
+
+<p>รวม: <span id="price">10</span> บาท</p>
+
+<button onclick="order()">สั่งซื้อ</button>
+
+<script>
+let qty = 1;
+const q = document.getElementById("q");
+const price = document.getElementById("price");
+
+setInterval(() => {
+  if (qty < 1) qty = 1;
+  q.textContent = qty;
+  price.textContent = qty * 10;
+}, 100);
+
+function order() {
+  alert("สั่งหมูปิ้ง " + qty + " ไม้");
+}
+</script>
+
+</body>
+</html>
