@@ -12,18 +12,18 @@
 
 <h2>🔐 เพิ่มเมนู</h2>
 
-<div id="login">
+<div id="loginBox">
   <input id="pass" type="password" placeholder="รหัสผ่าน">
-  <button onclick="login()">เข้า</button>
+  <button onclick="doLogin()">เข้า</button>
 </div>
 
-<div id="admin" style="display:none">
+<div id="adminBox" style="display:none">
 
   <input id="menuName" placeholder="ชื่อเมนู">
   <hr>
 
-  <h4>เพิ่มตัวเลือก</h4>
-  <input id="optName" placeholder="ชื่อตัวเลือก (ธรรมดา/พิเศษ)">
+  <h4>เพิ่มตัวเลือก / ราคา</h4>
+  <input id="optName" placeholder="ชื่อตัวเลือก">
   <input id="optPrice" type="number" placeholder="ราคา">
   <button onclick="addOpt()">เพิ่มตัวเลือก</button>
 
@@ -37,11 +37,15 @@ const PASS = "414428";
 let menus = JSON.parse(localStorage.getItem("menus")) || [];
 let tempOpts = [];
 
-function login() {
-  if (pass.value === PASS) {
-    login.style.display = "none";
-    admin.style.display = "block";
-  } else alert("รหัสผิด");
+function doLogin() {
+  const passInput = document.getElementById("pass").value;
+
+  if (passInput === PASS) {
+    document.getElementById("loginBox").style.display = "none";
+    document.getElementById("adminBox").style.display = "block";
+  } else {
+    alert("❌ รหัสผ่านไม่ถูกต้อง");
+  }
 }
 
 function addOpt() {
