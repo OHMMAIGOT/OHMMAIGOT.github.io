@@ -65,25 +65,25 @@ function render() {
   if (menus.length === 0) {
     menuDiv.innerHTML = `
       <div class="q">
-        <i>❌ วันนี้ยังไม่มีเมนู<br>กรุณารอร้านเปิด</i>
+        <i>❌ วันนี้ยังไม่มีเมนู</i>
       </div>
     `;
-    submitBtn.classList.add("disabled");
     submitBtn.disabled = true;
+    submitBtn.classList.add("disabled");
     return;
   }
 
   submitBtn.disabled = false;
   submitBtn.classList.remove("disabled");
 
-  menus.forEach(m => {
+  menus.forEach((m, mi) => {
     menuDiv.innerHTML += `
       <div class="q">
         <b>${m.name}</b>
         <select onchange="calc()">
           <option value="0">ไม่เอา</option>
-          ${m.options.map(o =>
-            `<option value="${o.price}">${o.label} (${o.price}฿)</option>`
+          ${m.prices.map(p =>
+            `<option value="${p}">${p} บาท</option>`
           ).join("")}
         </select>
       </div>
