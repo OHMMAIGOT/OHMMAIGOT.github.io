@@ -27,13 +27,14 @@
     border-radius:4px;
     cursor:pointer;
   }
+  .danger {
+    background:#d93025;
+  }
   .back {
     background:none;
     color:#5f6368;
     font-size:12px;
-    margin-bottom:10px;
   }
-  ul { padding-left:18px }
 </style>
 </head>
 <body>
@@ -52,69 +53,85 @@
 
   <div class="q">
     <b>ชื่อเมนู</b>
-    <input id="menuName" placeholder="เช่น หมูปิ้ง">
+    <input id="menuName">
 
-    <hr>
-
-    <b>เพิ่มราคา (กดได้หลายครั้ง)</b>
-    <input id="priceInput" type="number" placeholder="ราคา (บาท)">
+    <b>เพิ่มราคา</b>
+    <input id="priceInput" type="number">
     <button onclick="addPrice()">+ เพิ่มราคา</button>
 
-    <ul id="prices"></ul>
+    <ul id="priceList"></ul>
+    <button onclick="saveMenu()">💾 บันทึกเมนู</button>
   </div>
 
-  <button onclick="saveMenu()">💾 บันทึกเมนู</button>
+  <div class="q">
+    <b>เมนูที่มีอยู่</b>
+    <div id="menuList"></div>
+  </div>
 
 </div>
 </div>
 
 <script>
 const PASS = "414428";
-let menus = JSON.parse(localStorage.getItem("menus")) || [];
 let tempPrices = [];
+
+function loadMenus() {
+  return JSON.parse(localStorage.getItem("menus")) || [];
+}
+
+function saveMenus(m) {
+  localStorage.setItem("menus", JSON.stringify(m));
+}
 
 function login() {
   if (pass.value === PASS) {
     loginBox.style.display = "none";
     adminBox.style.display = "block";
-  } else {
-    alert("❌ รหัสผ่านไม่ถูกต้อง");
+    renderMenuList();
   }
 }
 
 function addPrice() {
   if (!priceInput.value) return;
-
   tempPrices.push(Number(priceInput.value));
   priceInput.value = "";
   renderPrices();
 }
 
 function renderPrices() {
-  prices.innerHTML = "";
-  tempPrices.forEach(p => {
-    prices.innerHTML += `<li>${p} บาท</li>`;
-  });
+  priceList.innerHTML = tempPrices.map(p => `<li>${p} บาท</li>`).join("");
 }
 
 function saveMenu() {
-  if (!menuName.value || tempPrices.length === 0) {
-    alert("กรอกชื่อเมนู และเพิ่มราคาอย่างน้อย 1 ราคา");
-    return;
-  }
-
-  menus.push({
-    name: menuName.value,
-    prices: tempPrices
-  });
-
-  localStorage.setItem("menus", JSON.stringify(menus));
-
+  if (!menuName.value || tempPrices.length === 0) return;
+  const menus = loadMenus();
+  menus.push({ name: menuName.value, prices: tempPrices });
+  saveMenus(menus);
   menuName.value = "";
   tempPrices = [];
   renderPrices();
+  renderMenuList();
+  alert("เพิ่มเมนูแล้ว");
+}
 
-  alert("✅ เพิ่มเมนูเรียบร้อย");
+function renderMenuList() {
+  const menus = loadMenus();
+  menuList.innerHTML = "";
+  menus.forEach((m, i) => {
+    menuList.innerHTML += `
+      <div>
+        ${m.name}
+        <button class="danger" onclick="delMenu(${i})">ลบ</button>
+      </div>
+    `;
+  });
+}
+
+function delMenu(i) {
+  const menus = loadMenus();
+  menus.splice(i, 1);
+  saveMenus(menus);
+  renderMenuList();
 }
 
 function goBack() {
