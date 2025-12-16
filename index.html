@@ -5,14 +5,13 @@
 <title>สั่งหมูปิ้ง</title>
 
 <style>
-/* 🌰 พื้นหลัง */
 body {
   margin: 0;
   background: #3b2a1a;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
-/* 📄 กล่องหลัก */
+/* กล่องหลัก */
 .form {
   max-width: 480px;
   margin: 16px auto;
@@ -22,22 +21,20 @@ body {
   border: 2px solid #5d4037;
 }
 
-/* 🏷 หัวฟอร์ม */
+/* หัว */
 .header h2 {
   margin: 0;
-  font-size: 26px;               /* ⬆ ใหญ่ขึ้น */
+  font-size: 26px;
   color: #3b2a1a;
-  -webkit-text-stroke: 0.5px #fff;
 }
 
 .header p {
   margin: 6px 0 16px;
-  font-size: 15px;               /* ⬆ */
+  font-size: 15px;
   color: #5d4037;
-  -webkit-text-stroke: 0.3px #fff;
 }
 
-/* 🟨 การ์ดเมนู */
+/* การ์ดเมนู */
 .q {
   background: linear-gradient(135deg, #ffe082, #ffd54f);
   border-radius: 18px;
@@ -46,16 +43,16 @@ body {
   border: 2px solid #5d4037;
 }
 
-/* 🍢 ชื่อเมนู */
+/* ชื่อเมนู — ไม่มีพื้นหลัง */
 .q b {
   display: block;
-  font-size: 22px;               /* ⬆ สำคัญ */
+  font-size: 22px;
   margin-bottom: 12px;
   color: #3b2a1a;
-  -webkit-text-stroke: 0.5px #fff;
+  background: transparent;      /* ❌ ไม่มีพื้นหลัง */
 }
 
-/* 💰 แถวราคา */
+/* แถวราคา */
 .price-row {
   display: flex;
   justify-content: space-between;
@@ -69,12 +66,12 @@ body {
 }
 
 .price-row span {
-  font-size: 17px;               /* ⬆ */
+  font-size: 17px;
   color: #4e342e;
-  -webkit-text-stroke: 0.3px #fff;
+  background: transparent;      /* ❌ */
 }
 
-/* ➕➖ จำนวน */
+/* จำนวน */
 .qty {
   display: flex;
   align-items: center;
@@ -82,7 +79,7 @@ body {
 }
 
 .qty button {
-  width: 40px;                   /* ⬆ */
+  width: 40px;
   height: 40px;
   font-size: 22px;
   border-radius: 50%;
@@ -94,42 +91,44 @@ body {
 .qty span {
   width: 30px;
   text-align: center;
-  font-size: 18px;               /* ⬆ */
+  font-size: 18px;
   font-weight: 700;
   color: #3b2a1a;
-  -webkit-text-stroke: 0.3px #fff;
+  background: transparent;      /* ❌ */
 }
 
-/* 🧮 รวม */
+/* รวม */
 .total {
   display: flex;
   justify-content: space-between;
-  font-size: 22px;               /* ⬆ */
+  font-size: 22px;
   margin: 20px 0 12px;
   color: #3b2a1a;
-  -webkit-text-stroke: 0.4px #fff;
 }
 
-/* 🔥 ปุ่มสั่ง */
+.total span,
+.total b {
+  background: transparent;      /* ❌ */
+}
+
+/* ปุ่มสั่ง */
 button.order-btn {
   width: 100%;
-  padding: 22px;                 /* ⬆ */
-  font-size: 24px;               /* ⬆ ใหญ่มาก */
+  padding: 22px;
+  font-size: 24px;
   font-weight: 800;
   border-radius: 24px;
-  border: 2px solid #ffd54f;
+  border: none;
   background: linear-gradient(135deg, #3b2a1a, #5d4037);
   color: #ffd54f;
   cursor: pointer;
-  box-shadow: 0 8px 18px rgba(0,0,0,0.35);
-  -webkit-text-stroke: 0.4px #fff;
 }
 
 button.order-btn:active {
   transform: scale(0.97);
 }
 
-/* 🔐 ปุ่มแอดมิน */
+/* ปุ่มแอดมิน */
 .admin {
   margin-top: 10px;
   background: none;
