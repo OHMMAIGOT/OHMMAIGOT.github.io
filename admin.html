@@ -2,55 +2,81 @@
 <html lang="th">
 <head>
 <meta charset="UTF-8">
-<title>เพิ่มเมนู (เจ้าของร้าน)</title>
+<title>แอดมิน</title>
 <style>
   body { font-family: sans-serif; max-width: 420px; margin: auto }
-  input, button { padding: 6px; margin: 4px 0 }
+  input, button { margin: 4px 0; padding: 6px }
 </style>
 </head>
 <body>
 
-<h2>🔐 หน้าเพิ่มเมนู</h2>
+<h2>🔐 เพิ่มเมนู</h2>
 
 <div id="login">
-  <input id="password" type="password" placeholder="รหัสผ่าน">
+  <input id="pass" type="password" placeholder="รหัสผ่าน">
   <button onclick="login()">เข้า</button>
 </div>
 
 <div id="admin" style="display:none">
-  <input id="name" placeholder="ชื่อเมนู">
-  <input id="price" type="number" placeholder="ราคา">
-  <button onclick="addItem()">เพิ่มเมนู</button>
+
+  <input id="menuName" placeholder="ชื่อเมนู">
+  <hr>
+
+  <h4>เพิ่มตัวเลือก</h4>
+  <input id="optName" placeholder="ชื่อตัวเลือก (ธรรมดา/พิเศษ)">
+  <input id="optPrice" type="number" placeholder="ราคา">
+  <button onclick="addOpt()">เพิ่มตัวเลือก</button>
+
+  <ul id="opts"></ul>
+
+  <button onclick="saveMenu()">💾 บันทึกเมนู</button>
 </div>
 
 <script>
-const OWNER_PASSWORD = "414428";
-let items = JSON.parse(localStorage.getItem("menu")) || [];
+const PASS = "414428";
+let menus = JSON.parse(localStorage.getItem("menus")) || [];
+let tempOpts = [];
 
 function login() {
-  const pass = document.getElementById("password").value;
-  if (pass === OWNER_PASSWORD) {
-    document.getElementById("login").style.display = "none";
-    document.getElementById("admin").style.display = "block";
-  } else {
-    alert("❌ รหัสผ่านไม่ถูกต้อง");
-  }
+  if (pass.value === PASS) {
+    login.style.display = "none";
+    admin.style.display = "block";
+  } else alert("รหัสผิด");
 }
 
-function addItem() {
-  const name = document.getElementById("name").value;
-  const price = Number(document.getElementById("price").value);
+function addOpt() {
+  const label = optName.value;
+  const price = Number(optPrice.value);
+  if (!label || price <= 0) return;
 
-  if (!name || price <= 0) {
-    alert("กรอกข้อมูลให้ถูก");
+  tempOpts.push({ label, price, qty: 0 });
+  optName.value = optPrice.value = "";
+  renderOpts();
+}
+
+function renderOpts() {
+  opts.innerHTML = "";
+  tempOpts.forEach(o => {
+    opts.innerHTML += `<li>${o.label} - ${o.price}฿</li>`;
+  });
+}
+
+function saveMenu() {
+  if (!menuName.value || tempOpts.length === 0) {
+    alert("กรอกข้อมูลไม่ครบ");
     return;
   }
 
-  items.push({ name, price, qty: 0 });
-  localStorage.setItem("menu", JSON.stringify(items));
+  menus.push({
+    name: menuName.value,
+    options: tempOpts
+  });
 
-  document.getElementById("name").value = "";
-  document.getElementById("price").value = "";
+  localStorage.setItem("menus", JSON.stringify(menus));
+
+  menuName.value = "";
+  tempOpts = [];
+  renderOpts();
 
   alert("✅ เพิ่มเมนูแล้ว");
 }
