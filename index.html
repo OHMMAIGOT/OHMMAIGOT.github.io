@@ -30,26 +30,40 @@ body {
   font-size: 13px;
 }
 
+/* 🔹 การ์ดเมนู */
 .q {
-  margin-bottom: 14px;
+  background: #fafafa;
+  border-radius: 18px;
+  padding: 16px;
+  margin-bottom: 18px;
 }
 
+/* 🔹 ชื่อเมนู */
 .q b {
-  font-size: 16px;
+  display: block;
+  font-size: 18px;
+  margin-bottom: 10px;
+  color: #000;
 }
 
+/* 🔹 แถวราคา */
 .price-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 6px;
+  padding: 8px 0;
+  border-top: 1px solid #e5e5e5;
+}
+
+.price-row:first-of-type {
+  border-top: none;
 }
 
 .price-row span {
   font-size: 14px;
-  color: #333;
 }
 
+/* 🔹 ปุ่มจำนวน */
 .qty {
   display: flex;
   align-items: center;
@@ -71,6 +85,7 @@ body {
   font-size: 14px;
 }
 
+/* 🔹 รวมราคา */
 .total {
   display: flex;
   justify-content: space-between;
@@ -78,7 +93,7 @@ body {
   margin: 18px 0 10px;
 }
 
-/* 🔥 ปุ่มสั่งใหญ่พิเศษ */
+/* 🔥 ปุ่มสั่งใหญ่ */
 button.order-btn {
   width: 100%;
   padding: 20px;
@@ -95,7 +110,6 @@ button.order-btn {
 
 button.order-btn:active {
   transform: scale(0.97);
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
 
 .admin {
