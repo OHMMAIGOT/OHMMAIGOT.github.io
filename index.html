@@ -13,11 +13,11 @@ body {
 
 /* กล่องหลัก */
 .form {
-  width: 90%;          /* เต็มมือถือ */
-  max-width: 480px;    /* ไม่ใหญ่เกินบน desktop */
-  margin: 16px auto;
+  width: 95%;
+  max-width: none;
+  margin: 10px auto;
   background: #fff8e1;
-  padding: 20px;
+  padding: 24px;
   border-radius: 20px;
   border: 2px solid #5d4037;
   box-sizing: border-box;
@@ -26,21 +26,21 @@ body {
 /* หัว */
 .header h2 {
   margin: 0;
-  font-size: 28px;
+  font-size: 32px;
   color: #3b2a1a;
 }
 
 .header p {
-  margin: 8px 0 18px;
-  font-size: 16px;
+  margin: 10px 0 20px;
+  font-size: 18px;
   color: #5d4037;
 }
 
 /* การ์ดเมนู */
 .q {
   background: linear-gradient(135deg, #ffe082, #ffd54f);
-  border-radius: 18px;
-  padding: 18px;
+  border-radius: 20px;
+  padding: 20px;
   margin-bottom: 20px;
   border: 2px solid #5d4037;
 }
@@ -48,10 +48,9 @@ body {
 /* ชื่อเมนู */
 .q b {
   display: block;
-  font-size: 24px;
-  margin-bottom: 12px;
+  font-size: 28px;
+  margin-bottom: 14px;
   color: #3b2a1a;
-  background: transparent;
 }
 
 /* แถวราคา */
@@ -59,7 +58,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 12px 0;
+  padding: 14px 0;
   border-top: 1px solid rgba(93,64,55,0.5);
 }
 
@@ -68,22 +67,21 @@ body {
 }
 
 .price-row span {
-  font-size: 18px;
+  font-size: 20px;
   color: #4e342e;
-  background: transparent;
 }
 
 /* จำนวน */
 .qty {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
 }
 
 .qty button {
-  width: 45px;
-  height: 45px;
-  font-size: 24px;
+  width: 50px;
+  height: 50px;
+  font-size: 26px;
   border-radius: 50%;
   border: 2px solid #ffd54f;
   background: #3b2a1a;
@@ -91,35 +89,29 @@ body {
 }
 
 .qty span {
-  width: 35px;
+  width: 40px;
   text-align: center;
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 700;
   color: #3b2a1a;
-  background: transparent;
 }
 
 /* รวม */
 .total {
   display: flex;
   justify-content: space-between;
-  font-size: 24px;
-  margin: 22px 0 14px;
+  font-size: 26px;
+  margin: 24px 0 16px;
   color: #3b2a1a;
-}
-
-.total span,
-.total b {
-  background: transparent;
 }
 
 /* ปุ่มสั่ง */
 button.order-btn {
   width: 100%;
-  padding: 24px;
-  font-size: 26px;
+  padding: 28px;
+  font-size: 28px;
   font-weight: 800;
-  border-radius: 24px;
+  border-radius: 28px;
   border: none;
   background: linear-gradient(135deg, #3b2a1a, #5d4037);
   color: #ffd54f;
@@ -132,22 +124,22 @@ button.order-btn:active {
 
 /* ปุ่มแอดมิน */
 .admin {
-  margin-top: 12px;
+  margin-top: 14px;
   background: none;
   border: none;
-  font-size: 14px;
+  font-size: 16px;
   color: #5d4037;
 }
 
-/* Responsive ปรับมือถือเล็กพิเศษ */
+/* Media query สำหรับมือถือเล็กมาก */
 @media (max-width: 360px) {
-  .header h2 { font-size: 24px; }
-  .header p { font-size: 14px; }
-  .q b { font-size: 20px; }
-  .price-row span, .qty span { font-size: 16px; }
-  .qty button { width: 40px; height: 40px; font-size: 20px; }
-  .total { font-size: 22px; }
-  button.order-btn { padding: 20px; font-size: 22px; }
+  .header h2 { font-size: 28px; }
+  .header p { font-size: 16px; }
+  .q b { font-size: 24px; }
+  .price-row span, .qty span { font-size: 18px; }
+  .qty button { width: 45px; height: 45px; font-size: 24px; }
+  .total { font-size: 24px; }
+  button.order-btn { padding: 24px; font-size: 26px; }
 }
 </style>
 </head>
