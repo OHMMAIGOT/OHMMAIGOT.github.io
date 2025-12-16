@@ -8,17 +8,18 @@
 /* 🌰 พื้นหลัง */
 body {
   margin: 0;
-  background: #3b2a1a; /* น้ำตาลเข้ม */
+  background: #3b2a1a;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
-/* 📄 กล่องหลัก */
+/* 📄 กล่องหลัก (พื้นอ่อน + ขอบน้ำตาล) */
 .form {
   max-width: 480px;
   margin: 16px auto;
   background: #fff8e1;
   padding: 16px;
   border-radius: 18px;
+  border: 2px solid #5d4037;
 }
 
 /* 🏷 หัวฟอร์ม */
@@ -26,11 +27,13 @@ body {
   margin: 0;
   font-size: 20px;
   color: #3b2a1a;
+  -webkit-text-stroke: 0.6px #ffffff;
 }
 
 .header p {
   margin: 4px 0 12px;
-  color: #6d4c41;
+  color: #5d4037;
+  -webkit-text-stroke: 0.3px #ffffff;
   font-size: 13px;
 }
 
@@ -41,14 +44,16 @@ body {
   padding: 16px;
   margin-bottom: 18px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  border: 2px solid #5d4037;
 }
 
-/* 🍢 ชื่อเมนู */
+/* 🍢 ชื่อเมนู (ขอบขาว) */
 .q b {
   display: block;
   font-size: 18px;
   margin-bottom: 10px;
   color: #3b2a1a;
+  -webkit-text-stroke: 0.8px #ffffff;
 }
 
 /* 💰 แถวราคา */
@@ -57,7 +62,7 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 8px 0;
-  border-top: 1px solid rgba(0,0,0,0.15);
+  border-top: 1px solid rgba(93,64,55,0.6);
 }
 
 .price-row:first-of-type {
@@ -67,6 +72,7 @@ body {
 .price-row span {
   font-size: 14px;
   color: #4e342e;
+  -webkit-text-stroke: 0.4px #ffffff;
 }
 
 /* ➕➖ จำนวน */
@@ -78,7 +84,7 @@ body {
 .qty button {
   width: 36px;
   height: 36px;
-  border: none;
+  border: 2px solid #ffd54f;
   background: #3b2a1a;
   color: #ffd54f;
   font-size: 20px;
@@ -91,6 +97,7 @@ body {
   font-size: 14px;
   color: #3b2a1a;
   font-weight: 600;
+  -webkit-text-stroke: 0.4px #ffffff;
 }
 
 /* 🧮 รวม */
@@ -100,6 +107,7 @@ body {
   font-size: 18px;
   margin: 18px 0 10px;
   color: #3b2a1a;
+  -webkit-text-stroke: 0.6px #ffffff;
 }
 
 /* 🔥 ปุ่มสั่ง */
@@ -107,14 +115,15 @@ button.order-btn {
   width: 100%;
   padding: 20px;
   font-size: 20px;
-  font-weight: 600;
-  border: none;
+  font-weight: 700;
   border-radius: 22px;
+  border: 2px solid #ffd54f;
   background: linear-gradient(135deg, #3b2a1a, #5d4037);
   color: #ffd54f;
   cursor: pointer;
   margin-top: 16px;
   box-shadow: 0 8px 18px rgba(0,0,0,0.35);
+  -webkit-text-stroke: 0.6px #ffffff;
 }
 
 button.order-btn:active {
@@ -125,7 +134,7 @@ button.order-btn:active {
 .admin {
   margin-top: 8px;
   background: none;
-  color: #6d4c41;
+  color: #5d4037;
   font-size: 12px;
   border: none;
 }
