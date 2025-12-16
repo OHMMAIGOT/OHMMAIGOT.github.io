@@ -27,27 +27,10 @@
   .admin {
     background:none; color:#5f6368;
     font-size:12px;
-  body {
-    font-family: sans-serif;
-    max-width: 420px;
-    margin: auto;
   }
-  .top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .item {
-    display: flex;
-    justify-content: space-between;
-    margin: 8px 0;
-  }
-  button {
-    padding: 4px 8px;
-  }
-  .admin-btn {
-    font-size: 12px;
-    opacity: 0.6;
+  .disabled {
+    background:#ccc;
+    cursor:not-allowed;
   }
 </style>
 </head>
@@ -58,10 +41,6 @@
     <h2>🍢 แบบฟอร์มสั่งหมูปิ้ง</h2>
     <p>กรุณาเลือกเมนู</p>
   </div>
-<div class="top">
-  <h2>🍢 ร้านหมูปิ้ง</h2>
-  <button class="admin-btn" onclick="goAdmin()">🔐 แอดมิน</button>
-</div>
 
   <div id="menu"></div>
 
@@ -69,7 +48,7 @@
     รวม: <b><span id="total">0</span></b> บาท
   </div>
 
-  <button onclick="submitOrder()">ส่งคำสั่งซื้อ</button>
+  <button id="submitBtn" onclick="submitOrder()">ส่งคำสั่งซื้อ</button>
   <br>
   <button class="admin" onclick="goAdmin()">🔐 สำหรับเจ้าของร้าน</button>
 </div>
@@ -78,9 +57,25 @@
 let menus = JSON.parse(localStorage.getItem("menus")) || [];
 const menuDiv = document.getElementById("menu");
 const totalEl = document.getElementById("total");
+const submitBtn = document.getElementById("submitBtn");
 
 function render() {
   menuDiv.innerHTML = "";
+
+  if (menus.length === 0) {
+    menuDiv.innerHTML = `
+      <div class="q">
+        <i>❌ วันนี้ยังไม่มีเมนู<br>กรุณารอร้านเปิด</i>
+      </div>
+    `;
+    submitBtn.classList.add("disabled");
+    submitBtn.disabled = true;
+    return;
+  }
+
+  submitBtn.disabled = false;
+  submitBtn.classList.remove("disabled");
+
   menus.forEach(m => {
     menuDiv.innerHTML += `
       <div class="q">
@@ -91,25 +86,6 @@ function render() {
             `<option value="${o.price}">${o.label} (${o.price}฿)</option>`
           ).join("")}
         </select>
-/* โหลดเมนูจาก admin */
-let items = JSON.parse(localStorage.getItem("menu")) || [];
-
-function render() {
-  menuDiv.innerHTML = "";
-  let sum = 0;
-
-  items.forEach((item, i) => {
-    const qty = item.qty || 0;
-    sum += qty * item.price;
-
-    menuDiv.innerHTML += `
-      <div class="item">
-        ${item.name} (${item.price}฿)
-        <div>
-          <button onclick="change(${i}, -1)">-</button>
-          ${qty}
-          <button onclick="change(${i}, 1)">+</button>
-        </div>
       </div>
     `;
   });
@@ -117,21 +93,22 @@ function render() {
 
 function calc() {
   let sum = 0;
-  document.querySelectorAll("select").forEach(s => sum += Number(s.value));
+  document.querySelectorAll("select").forEach(s => {
+    sum += Number(s.value);
+  });
   totalEl.textContent = sum;
 }
 
 function submitOrder() {
-  alert("ส่งคำสั่งซื้อแล้ว ✅\nรวม " + totalEl.textContent + " บาท");
+  if (Number(totalEl.textContent) === 0) {
+    alert("กรุณาเลือกอย่างน้อย 1 เมนู");
+    return;
+  }
+  alert("✅ ส่งคำสั่งซื้อแล้ว\nรวม " + totalEl.textContent + " บาท");
 }
 
 function goAdmin() {
   location.href = "admin.html";
-}
-
-/* 🔐 ไปหน้าแอดมิน */
-function goAdmin() {
-  window.location.href = "admin.html";
 }
 
 render();
