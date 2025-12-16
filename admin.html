@@ -43,13 +43,11 @@
 <h2>🔐 หน้าแอดมิน</h2>
 <button class="back" onclick="goBack()">⬅ กลับไปหน้าสั่ง</button>
 
-<!-- ล็อกอิน -->
 <div id="loginBox" class="q">
   <input id="pass" type="password" placeholder="รหัสผ่าน">
   <button onclick="login()">เข้า</button>
 </div>
 
-<!-- เพิ่มเมนู -->
 <div id="adminBox" style="display:none">
 
   <div class="q">
@@ -58,15 +56,14 @@
 
     <hr>
 
-    <b>เพิ่มราคา / ตัวเลือก</b>
-    <input id="optName" placeholder="ชื่อตัวเลือก (ธรรมดา / พิเศษ)">
-    <input id="optPrice" type="number" placeholder="ราคา (บาท)">
-    <button onclick="addOption()">+ เพิ่มราคา</button>
+    <b>เพิ่มราคา (กดได้หลายครั้ง)</b>
+    <input id="priceInput" type="number" placeholder="ราคา (บาท)">
+    <button onclick="addPrice()">+ เพิ่มราคา</button>
 
-    <ul id="opts"></ul>
+    <ul id="prices"></ul>
   </div>
 
-  <button onclick="saveMenu()">💾 บันทึกเมนูนี้</button>
+  <button onclick="saveMenu()">💾 บันทึกเมนู</button>
 
 </div>
 </div>
@@ -74,7 +71,7 @@
 <script>
 const PASS = "414428";
 let menus = JSON.parse(localStorage.getItem("menus")) || [];
-let tempOpts = [];
+let tempPrices = [];
 
 function login() {
   if (pass.value === PASS) {
@@ -85,42 +82,37 @@ function login() {
   }
 }
 
-function addOption() {
-  if (!optName.value || !optPrice.value) return;
+function addPrice() {
+  if (!priceInput.value) return;
 
-  tempOpts.push({
-    label: optName.value,
-    price: Number(optPrice.value)
-  });
-
-  optName.value = "";
-  optPrice.value = "";
-  renderOpts();
+  tempPrices.push(Number(priceInput.value));
+  priceInput.value = "";
+  renderPrices();
 }
 
-function renderOpts() {
-  opts.innerHTML = "";
-  tempOpts.forEach(o => {
-    opts.innerHTML += `<li>${o.label} - ${o.price}฿</li>`;
+function renderPrices() {
+  prices.innerHTML = "";
+  tempPrices.forEach(p => {
+    prices.innerHTML += `<li>${p} บาท</li>`;
   });
 }
 
 function saveMenu() {
-  if (!menuName.value || tempOpts.length === 0) {
-    alert("กรอกชื่อเมนูและราคาอย่างน้อย 1 รายการ");
+  if (!menuName.value || tempPrices.length === 0) {
+    alert("กรอกชื่อเมนู และเพิ่มราคาอย่างน้อย 1 ราคา");
     return;
   }
 
   menus.push({
     name: menuName.value,
-    options: tempOpts
+    prices: tempPrices
   });
 
   localStorage.setItem("menus", JSON.stringify(menus));
 
   menuName.value = "";
-  tempOpts = [];
-  renderOpts();
+  tempPrices = [];
+  renderPrices();
 
   alert("✅ เพิ่มเมนูเรียบร้อย");
 }
