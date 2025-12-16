@@ -2,8 +2,31 @@
 <html lang="th">
 <head>
 <meta charset="UTF-8">
-<title>ร้านหมูปิ้ง</title>
+<title>แบบฟอร์มสั่งหมูปิ้ง</title>
 <style>
+  body { background:#f1f3f4; font-family:Arial }
+  .form {
+    background:#fff; max-width:520px; margin:30px auto;
+    padding:20px; border-radius:8px;
+  }
+  .header { border-top:8px solid #673ab7; padding-top:10px }
+  .q {
+    border:1px solid #dadce0;
+    border-radius:8px;
+    padding:15px;
+    margin:15px 0;
+  }
+  select { width:100%; padding:8px; margin-top:8px }
+  .total { text-align:right; font-size:18px }
+  button {
+    background:#673ab7; color:#fff;
+    border:none; padding:10px 16px;
+    border-radius:4px; cursor:pointer;
+    margin-top:10px;
+  }
+  .admin {
+    background:none; color:#5f6368;
+    font-size:12px;
   body {
     font-family: sans-serif;
     max-width: 420px;
@@ -30,21 +53,44 @@
 </head>
 <body>
 
+<div class="form">
+  <div class="header">
+    <h2>🍢 แบบฟอร์มสั่งหมูปิ้ง</h2>
+    <p>กรุณาเลือกเมนู</p>
+  </div>
 <div class="top">
   <h2>🍢 ร้านหมูปิ้ง</h2>
   <button class="admin-btn" onclick="goAdmin()">🔐 แอดมิน</button>
 </div>
 
-<div id="menu"></div>
+  <div id="menu"></div>
 
-<hr>
-<p>รวมทั้งหมด: <b><span id="total">0</span></b> บาท</p>
-<button onclick="order()">สั่งซื้อ</button>
+  <div class="total">
+    รวม: <b><span id="total">0</span></b> บาท
+  </div>
+
+  <button onclick="submitOrder()">ส่งคำสั่งซื้อ</button>
+  <br>
+  <button class="admin" onclick="goAdmin()">🔐 สำหรับเจ้าของร้าน</button>
+</div>
 
 <script>
+let menus = JSON.parse(localStorage.getItem("menus")) || [];
 const menuDiv = document.getElementById("menu");
 const totalEl = document.getElementById("total");
 
+function render() {
+  menuDiv.innerHTML = "";
+  menus.forEach(m => {
+    menuDiv.innerHTML += `
+      <div class="q">
+        <b>${m.name}</b>
+        <select onchange="calc()">
+          <option value="0">ไม่เอา</option>
+          ${m.options.map(o =>
+            `<option value="${o.price}">${o.label} (${o.price}฿)</option>`
+          ).join("")}
+        </select>
 /* โหลดเมนูจาก admin */
 let items = JSON.parse(localStorage.getItem("menu")) || [];
 
@@ -67,23 +113,20 @@ function render() {
       </div>
     `;
   });
+}
 
+function calc() {
+  let sum = 0;
+  document.querySelectorAll("select").forEach(s => sum += Number(s.value));
   totalEl.textContent = sum;
 }
 
-function change(i, n) {
-  items[i].qty = (items[i].qty || 0) + n;
-  if (items[i].qty < 0) items[i].qty = 0;
-  render();
+function submitOrder() {
+  alert("ส่งคำสั่งซื้อแล้ว ✅\nรวม " + totalEl.textContent + " บาท");
 }
 
-function order() {
-  let msg = "สั่งซื้อ:\n";
-  items.forEach(i => {
-    if (i.qty > 0) msg += `${i.name} x ${i.qty}\n`;
-  });
-  msg += `รวม ${totalEl.textContent} บาท`;
-  alert(msg);
+function goAdmin() {
+  location.href = "admin.html";
 }
 
 /* 🔐 ไปหน้าแอดมิน */

@@ -4,32 +4,52 @@
 <meta charset="UTF-8">
 <title>แอดมิน</title>
 <style>
-  body { font-family: sans-serif; max-width: 420px; margin: auto }
-  input, button { margin: 4px 0; padding: 6px }
+  body { background:#f1f3f4; font-family:Arial }
+  .form {
+    background:#fff; max-width:520px; margin:30px auto;
+    padding:20px; border-radius:8px;
+  }
+  .q {
+    border:1px solid #dadce0;
+    border-radius:8px;
+    padding:15px;
+    margin:15px 0;
+  }
+  input, button { width:100%; padding:8px; margin-top:6px }
+  button {
+    background:#673ab7; color:#fff;
+    border:none; border-radius:4px;
+    cursor:pointer;
+  }
 </style>
 </head>
 <body>
 
-<h2>🔐 เพิ่มเมนู</h2>
+<div class="form">
 
-<div id="loginBox">
+<h2>🔐 หน้าแอดมิน</h2>
+
+<div id="loginBox" class="q">
   <input id="pass" type="password" placeholder="รหัสผ่าน">
-  <button onclick="doLogin()">เข้า</button>
+  <button onclick="login()">เข้า</button>
 </div>
 
 <div id="adminBox" style="display:none">
 
-  <input id="menuName" placeholder="ชื่อเมนู">
-  <hr>
+  <div class="q">
+    <input id="menuName" placeholder="ชื่อเมนู">
+  </div>
 
-  <h4>เพิ่มตัวเลือก / ราคา</h4>
-  <input id="optName" placeholder="ชื่อตัวเลือก">
-  <input id="optPrice" type="number" placeholder="ราคา">
-  <button onclick="addOpt()">เพิ่มตัวเลือก</button>
-
-  <ul id="opts"></ul>
+  <div class="q">
+    <input id="optName" placeholder="ชื่อตัวเลือก (ธรรมดา/พิเศษ)">
+    <input id="optPrice" type="number" placeholder="ราคา">
+    <button onclick="addOption()">เพิ่มตัวเลือก</button>
+    <ul id="opts"></ul>
+  </div>
 
   <button onclick="saveMenu()">💾 บันทึกเมนู</button>
+
+</div>
 </div>
 
 <script>
@@ -37,23 +57,16 @@ const PASS = "414428";
 let menus = JSON.parse(localStorage.getItem("menus")) || [];
 let tempOpts = [];
 
-function doLogin() {
-  const passInput = document.getElementById("pass").value;
-
-  if (passInput === PASS) {
-    document.getElementById("loginBox").style.display = "none";
-    document.getElementById("adminBox").style.display = "block";
-  } else {
-    alert("❌ รหัสผ่านไม่ถูกต้อง");
-  }
+function login() {
+  if (pass.value === PASS) {
+    loginBox.style.display = "none";
+    adminBox.style.display = "block";
+  } else alert("รหัสผิด");
 }
 
-function addOpt() {
-  const label = optName.value;
-  const price = Number(optPrice.value);
-  if (!label || price <= 0) return;
-
-  tempOpts.push({ label, price, qty: 0 });
+function addOption() {
+  if (!optName.value || !optPrice.value) return;
+  tempOpts.push({ label: optName.value, price: Number(optPrice.value) });
   optName.value = optPrice.value = "";
   renderOpts();
 }
@@ -67,22 +80,15 @@ function renderOpts() {
 
 function saveMenu() {
   if (!menuName.value || tempOpts.length === 0) {
-    alert("กรอกข้อมูลไม่ครบ");
+    alert("ข้อมูลไม่ครบ");
     return;
   }
-
-  menus.push({
-    name: menuName.value,
-    options: tempOpts
-  });
-
+  menus.push({ name: menuName.value, options: tempOpts });
   localStorage.setItem("menus", JSON.stringify(menus));
-
   menuName.value = "";
   tempOpts = [];
   renderOpts();
-
-  alert("✅ เพิ่มเมนูแล้ว");
+  alert("เพิ่มเมนูแล้ว ✅");
 }
 </script>
 
