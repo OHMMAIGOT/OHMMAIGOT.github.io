@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<title>เพิ่มเมนู (เจ้าของร้าน)</title>
+<style>
+  body { font-family: sans-serif; max-width: 420px; margin: auto }
+  input, button { padding: 6px; margin: 4px 0 }
+</style>
+</head>
+<body>
+
+<h2>🔐 หน้าเพิ่มเมนู</h2>
+
+<div id="login">
+  <input id="password" type="password" placeholder="รหัสผ่าน">
+  <button onclick="login()">เข้า</button>
+</div>
+
+<div id="admin" style="display:none">
+  <input id="name" placeholder="ชื่อเมนู">
+  <input id="price" type="number" placeholder="ราคา">
+  <button onclick="addItem()">เพิ่มเมนู</button>
+</div>
+
+<script>
+const OWNER_PASSWORD = "414428";
+let items = JSON.parse(localStorage.getItem("menu")) || [];
+
+function login() {
+  const pass = document.getElementById("password").value;
+  if (pass === OWNER_PASSWORD) {
+    document.getElementById("login").style.display = "none";
+    document.getElementById("admin").style.display = "block";
+  } else {
+    alert("❌ รหัสผ่านไม่ถูกต้อง");
+  }
+}
+
+function addItem() {
+  const name = document.getElementById("name").value;
+  const price = Number(document.getElementById("price").value);
+
+  if (!name || price <= 0) {
+    alert("กรอกข้อมูลให้ถูก");
+    return;
+  }
+
+  items.push({ name, price, qty: 0 });
+  localStorage.setItem("menu", JSON.stringify(items));
+
+  document.getElementById("name").value = "";
+  document.getElementById("price").value = "";
+
+  alert("✅ เพิ่มเมนูแล้ว");
+}
+</script>
+
+</body>
+</html>
