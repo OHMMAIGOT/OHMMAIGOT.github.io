@@ -12,29 +12,29 @@ body {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
-/* 📄 กล่องหลัก (พื้นอ่อน + ขอบน้ำตาล) */
+/* 📄 กล่องหลัก */
 .form {
   max-width: 480px;
   margin: 16px auto;
   background: #fff8e1;
-  padding: 16px;
-  border-radius: 18px;
+  padding: 18px;
+  border-radius: 20px;
   border: 2px solid #5d4037;
 }
 
 /* 🏷 หัวฟอร์ม */
 .header h2 {
   margin: 0;
-  font-size: 20px;
+  font-size: 26px;               /* ⬆ ใหญ่ขึ้น */
   color: #3b2a1a;
-  -webkit-text-stroke: 0.6px #ffffff;
+  -webkit-text-stroke: 0.5px #fff;
 }
 
 .header p {
-  margin: 4px 0 12px;
+  margin: 6px 0 16px;
+  font-size: 15px;               /* ⬆ */
   color: #5d4037;
-  -webkit-text-stroke: 0.3px #ffffff;
-  font-size: 13px;
+  -webkit-text-stroke: 0.3px #fff;
 }
 
 /* 🟨 การ์ดเมนู */
@@ -42,18 +42,17 @@ body {
   background: linear-gradient(135deg, #ffe082, #ffd54f);
   border-radius: 18px;
   padding: 16px;
-  margin-bottom: 18px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  margin-bottom: 20px;
   border: 2px solid #5d4037;
 }
 
-/* 🍢 ชื่อเมนู (ขอบขาว) */
+/* 🍢 ชื่อเมนู */
 .q b {
   display: block;
-  font-size: 18px;
-  margin-bottom: 10px;
+  font-size: 22px;               /* ⬆ สำคัญ */
+  margin-bottom: 12px;
   color: #3b2a1a;
-  -webkit-text-stroke: 0.8px #ffffff;
+  -webkit-text-stroke: 0.5px #fff;
 }
 
 /* 💰 แถวราคา */
@@ -61,69 +60,69 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 8px 0;
-  border-top: 1px solid rgba(93,64,55,0.6);
+  padding: 10px 0;
+  border-top: 1px solid rgba(93,64,55,0.5);
 }
 
-.price-row:first-of-type {
+.price-row:first-child {
   border-top: none;
 }
 
 .price-row span {
-  font-size: 14px;
+  font-size: 17px;               /* ⬆ */
   color: #4e342e;
-  -webkit-text-stroke: 0.4px #ffffff;
+  -webkit-text-stroke: 0.3px #fff;
 }
 
 /* ➕➖ จำนวน */
 .qty {
   display: flex;
   align-items: center;
+  gap: 10px;
 }
 
 .qty button {
-  width: 36px;
-  height: 36px;
+  width: 40px;                   /* ⬆ */
+  height: 40px;
+  font-size: 22px;
+  border-radius: 50%;
   border: 2px solid #ffd54f;
   background: #3b2a1a;
   color: #ffd54f;
-  font-size: 20px;
-  border-radius: 50%;
 }
 
 .qty span {
-  width: 24px;
+  width: 30px;
   text-align: center;
-  font-size: 14px;
+  font-size: 18px;               /* ⬆ */
+  font-weight: 700;
   color: #3b2a1a;
-  font-weight: 600;
-  -webkit-text-stroke: 0.4px #ffffff;
+  -webkit-text-stroke: 0.3px #fff;
 }
 
 /* 🧮 รวม */
 .total {
   display: flex;
   justify-content: space-between;
-  font-size: 18px;
-  margin: 18px 0 10px;
+  font-size: 22px;               /* ⬆ */
+  margin: 20px 0 12px;
   color: #3b2a1a;
-  -webkit-text-stroke: 0.6px #ffffff;
+  -webkit-text-stroke: 0.4px #fff;
 }
 
 /* 🔥 ปุ่มสั่ง */
 button.order-btn {
   width: 100%;
-  padding: 20px;
-  font-size: 20px;
-  font-weight: 700;
-  border-radius: 22px;
+  padding: 22px;                 /* ⬆ */
+  font-size: 24px;               /* ⬆ ใหญ่มาก */
+  font-weight: 800;
+  border-radius: 24px;
   border: 2px solid #ffd54f;
   background: linear-gradient(135deg, #3b2a1a, #5d4037);
   color: #ffd54f;
   cursor: pointer;
-  margin-top: 16px;
   box-shadow: 0 8px 18px rgba(0,0,0,0.35);
-  -webkit-text-stroke: 0.6px #ffffff;
+  -webkit-text-stroke: 0.4px #fff;
 }
 
 button.order-btn:active {
@@ -132,11 +131,11 @@ button.order-btn:active {
 
 /* 🔐 ปุ่มแอดมิน */
 .admin {
-  margin-top: 8px;
+  margin-top: 10px;
   background: none;
-  color: #5d4037;
-  font-size: 12px;
   border: none;
+  font-size: 13px;
+  color: #5d4037;
 }
 </style>
 </head>
@@ -146,7 +145,7 @@ button.order-btn:active {
 <div class="form">
   <div class="header">
     <h2>🍢 สั่งหมูปิ้ง</h2>
-    <p>กด + − เลือกจำนวนได้เลย</p>
+    <p>เลือกเมนูแล้วกด + − ได้เลย</p>
   </div>
 
   <div id="menu"></div>
@@ -164,24 +163,15 @@ button.order-btn:active {
 const menus = JSON.parse(localStorage.getItem("menus")) || [];
 const menuDiv = document.getElementById("menu");
 const totalEl = document.getElementById("total");
-
 let cart = {};
 
 function render() {
   menuDiv.innerHTML = "";
-
-  if (menus.length === 0) {
-    menuDiv.innerHTML = `<i>วันนี้ยังไม่มีเมนู</i>`;
-    return;
-  }
-
   menus.forEach((m, mi) => {
     let html = `<div class="q"><b>${m.name}</b>`;
-
     m.prices.forEach((p, pi) => {
       const key = `${mi}-${pi}`;
       cart[key] = cart[key] || 0;
-
       html += `
         <div class="price-row">
           <span>${p} บาท</span>
@@ -190,36 +180,34 @@ function render() {
             <span id="qty-${key}">${cart[key]}</span>
             <button onclick="changeQty('${key}', 1)">+</button>
           </div>
-        </div>
-      `;
+        </div>`;
     });
-
     html += `</div>`;
     menuDiv.innerHTML += html;
   });
 }
 
-function changeQty(key, delta) {
-  cart[key] = Math.max(0, cart[key] + delta);
+function changeQty(key, d) {
+  cart[key] = Math.max(0, cart[key] + d);
   document.getElementById("qty-" + key).textContent = cart[key];
   calc();
 }
 
 function calc() {
   let sum = 0;
-  for (let key in cart) {
-    const [mi, pi] = key.split("-");
-    sum += cart[key] * menus[mi].prices[pi];
+  for (let k in cart) {
+    const [mi, pi] = k.split("-");
+    sum += cart[k] * menus[mi].prices[pi];
   }
   totalEl.textContent = sum;
 }
 
 function submitOrder() {
-  if (Number(totalEl.textContent) === 0) {
-    alert("เลือกก่อนน้า 😅");
+  if (+totalEl.textContent === 0) {
+    alert("ยังไม่ได้เลือกอะไรเลย 😅");
     return;
   }
-  alert("✅ สั่งแล้ว!\nรวม " + totalEl.textContent + " บาท");
+  alert("✅ สั่งแล้ว รวม " + totalEl.textContent + " บาท");
 }
 
 function goAdmin() {
