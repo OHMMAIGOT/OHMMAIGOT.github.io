@@ -27,6 +27,27 @@
   .admin {
     background:none; color:#5f6368;
     font-size:12px;
+  body {
+    font-family: sans-serif;
+    max-width: 420px;
+    margin: auto;
+  }
+  .top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .item {
+    display: flex;
+    justify-content: space-between;
+    margin: 8px 0;
+  }
+  button {
+    padding: 4px 8px;
+  }
+  .admin-btn {
+    font-size: 12px;
+    opacity: 0.6;
   }
 </style>
 </head>
@@ -37,6 +58,10 @@
     <h2>🍢 แบบฟอร์มสั่งหมูปิ้ง</h2>
     <p>กรุณาเลือกเมนู</p>
   </div>
+<div class="top">
+  <h2>🍢 ร้านหมูปิ้ง</h2>
+  <button class="admin-btn" onclick="goAdmin()">🔐 แอดมิน</button>
+</div>
 
   <div id="menu"></div>
 
@@ -66,6 +91,25 @@ function render() {
             `<option value="${o.price}">${o.label} (${o.price}฿)</option>`
           ).join("")}
         </select>
+/* โหลดเมนูจาก admin */
+let items = JSON.parse(localStorage.getItem("menu")) || [];
+
+function render() {
+  menuDiv.innerHTML = "";
+  let sum = 0;
+
+  items.forEach((item, i) => {
+    const qty = item.qty || 0;
+    sum += qty * item.price;
+
+    menuDiv.innerHTML += `
+      <div class="item">
+        ${item.name} (${item.price}฿)
+        <div>
+          <button onclick="change(${i}, -1)">-</button>
+          ${qty}
+          <button onclick="change(${i}, 1)">+</button>
+        </div>
       </div>
     `;
   });
@@ -83,6 +127,11 @@ function submitOrder() {
 
 function goAdmin() {
   location.href = "admin.html";
+}
+
+/* 🔐 ไปหน้าแอดมิน */
+function goAdmin() {
+  window.location.href = "admin.html";
 }
 
 render();
