@@ -4,14 +4,36 @@
 <meta charset="UTF-8">
 <title>ร้านหมูปิ้ง</title>
 <style>
-  body { font-family: sans-serif; max-width: 420px; margin: auto }
-  .item { display: flex; justify-content: space-between; margin: 8px 0 }
-  button { padding: 4px 8px }
+  body {
+    font-family: sans-serif;
+    max-width: 420px;
+    margin: auto;
+  }
+  .top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .item {
+    display: flex;
+    justify-content: space-between;
+    margin: 8px 0;
+  }
+  button {
+    padding: 4px 8px;
+  }
+  .admin-btn {
+    font-size: 12px;
+    opacity: 0.6;
+  }
 </style>
 </head>
 <body>
 
-<h2>🍢 ร้านหมูปิ้ง</h2>
+<div class="top">
+  <h2>🍢 ร้านหมูปิ้ง</h2>
+  <button class="admin-btn" onclick="goAdmin()">🔐 แอดมิน</button>
+</div>
 
 <div id="menu"></div>
 
@@ -23,6 +45,7 @@
 const menuDiv = document.getElementById("menu");
 const totalEl = document.getElementById("total");
 
+/* โหลดเมนูจาก admin */
 let items = JSON.parse(localStorage.getItem("menu")) || [];
 
 function render() {
@@ -30,14 +53,15 @@ function render() {
   let sum = 0;
 
   items.forEach((item, i) => {
-    sum += (item.qty || 0) * item.price;
+    const qty = item.qty || 0;
+    sum += qty * item.price;
 
     menuDiv.innerHTML += `
       <div class="item">
         ${item.name} (${item.price}฿)
         <div>
           <button onclick="change(${i}, -1)">-</button>
-          ${item.qty || 0}
+          ${qty}
           <button onclick="change(${i}, 1)">+</button>
         </div>
       </div>
@@ -60,6 +84,11 @@ function order() {
   });
   msg += `รวม ${totalEl.textContent} บาท`;
   alert(msg);
+}
+
+/* 🔐 ไปหน้าแอดมิน */
+function goAdmin() {
+  window.location.href = "admin.html";
 }
 
 render();
