@@ -15,17 +15,25 @@
     padding:15px;
     margin:15px 0;
   }
-  input, button { width:100%; padding:8px; margin-top:6px }
+  input, button {
+    width:100%;
+    padding:8px;
+    margin-top:6px;
+  }
   button {
-    background:#673ab7; color:#fff;
-    border:none; border-radius:4px;
+    background:#673ab7;
+    color:#fff;
+    border:none;
+    border-radius:4px;
     cursor:pointer;
   }
   .back {
     background:none;
     color:#5f6368;
     font-size:12px;
+    margin-bottom:10px;
   }
+  ul { padding-left:18px }
 </style>
 </head>
 <body>
@@ -33,29 +41,32 @@
 <div class="form">
 
 <h2>🔐 หน้าแอดมิน</h2>
-
-<!-- ปุ่มกลับ -->
 <button class="back" onclick="goBack()">⬅ กลับไปหน้าสั่ง</button>
 
+<!-- ล็อกอิน -->
 <div id="loginBox" class="q">
   <input id="pass" type="password" placeholder="รหัสผ่าน">
   <button onclick="login()">เข้า</button>
 </div>
 
+<!-- เพิ่มเมนู -->
 <div id="adminBox" style="display:none">
 
   <div class="q">
-    <input id="menuName" placeholder="ชื่อเมนู">
-  </div>
+    <b>ชื่อเมนู</b>
+    <input id="menuName" placeholder="เช่น หมูปิ้ง">
 
-  <div class="q">
-    <input id="optName" placeholder="ชื่อตัวเลือก (ธรรมดา/พิเศษ)">
-    <input id="optPrice" type="number" placeholder="ราคา">
-    <button onclick="addOption()">เพิ่มตัวเลือก</button>
+    <hr>
+
+    <b>เพิ่มราคา / ตัวเลือก</b>
+    <input id="optName" placeholder="ชื่อตัวเลือก (ธรรมดา / พิเศษ)">
+    <input id="optPrice" type="number" placeholder="ราคา (บาท)">
+    <button onclick="addOption()">+ เพิ่มราคา</button>
+
     <ul id="opts"></ul>
   </div>
 
-  <button onclick="saveMenu()">💾 บันทึกเมนู</button>
+  <button onclick="saveMenu()">💾 บันทึกเมนูนี้</button>
 
 </div>
 </div>
@@ -69,13 +80,21 @@ function login() {
   if (pass.value === PASS) {
     loginBox.style.display = "none";
     adminBox.style.display = "block";
-  } else alert("รหัสผิด");
+  } else {
+    alert("❌ รหัสผ่านไม่ถูกต้อง");
+  }
 }
 
 function addOption() {
   if (!optName.value || !optPrice.value) return;
-  tempOpts.push({ label: optName.value, price: Number(optPrice.value) });
-  optName.value = optPrice.value = "";
+
+  tempOpts.push({
+    label: optName.value,
+    price: Number(optPrice.value)
+  });
+
+  optName.value = "";
+  optPrice.value = "";
   renderOpts();
 }
 
@@ -88,18 +107,24 @@ function renderOpts() {
 
 function saveMenu() {
   if (!menuName.value || tempOpts.length === 0) {
-    alert("ข้อมูลไม่ครบ");
+    alert("กรอกชื่อเมนูและราคาอย่างน้อย 1 รายการ");
     return;
   }
-  menus.push({ name: menuName.value, options: tempOpts });
+
+  menus.push({
+    name: menuName.value,
+    options: tempOpts
+  });
+
   localStorage.setItem("menus", JSON.stringify(menus));
+
   menuName.value = "";
   tempOpts = [];
   renderOpts();
-  alert("เพิ่มเมนูแล้ว ✅");
+
+  alert("✅ เพิ่มเมนูเรียบร้อย");
 }
 
-/* ⬅ กลับหน้าสั่ง */
 function goBack() {
   location.href = "index.html";
 }
