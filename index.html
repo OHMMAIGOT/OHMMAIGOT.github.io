@@ -5,54 +5,59 @@
 <title>สั่งหมูปิ้ง</title>
 
 <style>
+/* 🌰 พื้นหลัง */
 body {
   margin: 0;
-  background: #f2f2f2;
+  background: #3b2a1a; /* น้ำตาลเข้ม */
   font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
+/* 📄 กล่องหลัก */
 .form {
   max-width: 480px;
   margin: 16px auto;
-  background: #fff;
+  background: #fff8e1;
   padding: 16px;
-  border-radius: 16px;
+  border-radius: 18px;
 }
 
+/* 🏷 หัวฟอร์ม */
 .header h2 {
   margin: 0;
   font-size: 20px;
+  color: #3b2a1a;
 }
 
 .header p {
   margin: 4px 0 12px;
-  color: #666;
+  color: #6d4c41;
   font-size: 13px;
 }
 
-/* 🔹 การ์ดเมนู */
+/* 🟨 การ์ดเมนู */
 .q {
-  background: #fafafa;
+  background: linear-gradient(135deg, #ffe082, #ffd54f);
   border-radius: 18px;
   padding: 16px;
   margin-bottom: 18px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
 }
 
-/* 🔹 ชื่อเมนู */
+/* 🍢 ชื่อเมนู */
 .q b {
   display: block;
   font-size: 18px;
   margin-bottom: 10px;
-  color: #000;
+  color: #3b2a1a;
 }
 
-/* 🔹 แถวราคา */
+/* 💰 แถวราคา */
 .price-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 8px 0;
-  border-top: 1px solid #e5e5e5;
+  border-top: 1px solid rgba(0,0,0,0.15);
 }
 
 .price-row:first-of-type {
@@ -61,9 +66,10 @@ body {
 
 .price-row span {
   font-size: 14px;
+  color: #4e342e;
 }
 
-/* 🔹 ปุ่มจำนวน */
+/* ➕➖ จำนวน */
 .qty {
   display: flex;
   align-items: center;
@@ -73,8 +79,8 @@ body {
   width: 36px;
   height: 36px;
   border: none;
-  background: #000;
-  color: #fff;
+  background: #3b2a1a;
+  color: #ffd54f;
   font-size: 20px;
   border-radius: 50%;
 }
@@ -83,39 +89,43 @@ body {
   width: 24px;
   text-align: center;
   font-size: 14px;
+  color: #3b2a1a;
+  font-weight: 600;
 }
 
-/* 🔹 รวมราคา */
+/* 🧮 รวม */
 .total {
   display: flex;
   justify-content: space-between;
   font-size: 18px;
   margin: 18px 0 10px;
+  color: #3b2a1a;
 }
 
-/* 🔥 ปุ่มสั่งใหญ่ */
+/* 🔥 ปุ่มสั่ง */
 button.order-btn {
   width: 100%;
   padding: 20px;
   font-size: 20px;
   font-weight: 600;
   border: none;
-  border-radius: 20px;
-  background: linear-gradient(135deg, #000, #333);
-  color: #fff;
+  border-radius: 22px;
+  background: linear-gradient(135deg, #3b2a1a, #5d4037);
+  color: #ffd54f;
   cursor: pointer;
   margin-top: 16px;
-  box-shadow: 0 8px 18px rgba(0,0,0,0.25);
+  box-shadow: 0 8px 18px rgba(0,0,0,0.35);
 }
 
 button.order-btn:active {
   transform: scale(0.97);
 }
 
+/* 🔐 ปุ่มแอดมิน */
 .admin {
   margin-top: 8px;
   background: none;
-  color: #888;
+  color: #6d4c41;
   font-size: 12px;
   border: none;
 }
