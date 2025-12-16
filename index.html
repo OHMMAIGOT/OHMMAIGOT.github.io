@@ -7,20 +7,11 @@
   body { font-family: sans-serif; max-width: 420px; margin: auto }
   .item { display: flex; justify-content: space-between; margin: 8px 0 }
   button { padding: 4px 8px }
-  input { padding: 4px; width: 100px }
 </style>
 </head>
 <body>
 
 <h2>🍢 ร้านหมูปิ้ง</h2>
-
-<!-- เพิ่มเมนู (เจ้าของร้าน) -->
-<h3>🔐 เพิ่มเมนู (เฉพาะเจ้าของ)</h3>
-<input id="name" placeholder="ชื่อเมนู">
-<input id="price" type="number" placeholder="ราคา">
-<button onclick="addItem()">เพิ่มเมนู</button>
-
-<hr>
 
 <div id="menu"></div>
 
@@ -29,62 +20,36 @@
 <button onclick="order()">สั่งซื้อ</button>
 
 <script>
-/* 🔐 ตั้งรหัสผ่านตรงนี้ */
-const OWNER_PASSWORD = "414428";
+const menuDiv = document.getElementById("menu");
+const totalEl = document.getElementById("total");
 
-const items = [];
-const menu = document.getElementById("menu");
-const total = document.getElementById("total");
+let items = JSON.parse(localStorage.getItem("menu")) || [];
 
 function render() {
-  menu.innerHTML = "";
+  menuDiv.innerHTML = "";
   let sum = 0;
 
   items.forEach((item, i) => {
-    sum += item.qty * item.price;
+    sum += (item.qty || 0) * item.price;
 
-    menu.innerHTML += `
+    menuDiv.innerHTML += `
       <div class="item">
         ${item.name} (${item.price}฿)
         <div>
           <button onclick="change(${i}, -1)">-</button>
-          ${item.qty}
+          ${item.qty || 0}
           <button onclick="change(${i}, 1)">+</button>
         </div>
       </div>
     `;
   });
 
-  total.textContent = sum;
+  totalEl.textContent = sum;
 }
 
 function change(i, n) {
-  items[i].qty += n;
+  items[i].qty = (items[i].qty || 0) + n;
   if (items[i].qty < 0) items[i].qty = 0;
-  render();
-}
-
-function addItem() {
-  const pass = prompt("กรุณาใส่รหัสเจ้าของร้าน");
-
-  if (pass !== OWNER_PASSWORD) {
-    alert("❌ รหัสผ่านไม่ถูกต้อง");
-    return;
-  }
-
-  const name = document.getElementById("name").value;
-  const price = Number(document.getElementById("price").value);
-
-  if (!name || price <= 0) {
-    alert("กรอกชื่อเมนูและราคาให้ถูก");
-    return;
-  }
-
-  items.push({ name, price, qty: 0 });
-
-  document.getElementById("name").value = "";
-  document.getElementById("price").value = "";
-
   render();
 }
 
@@ -93,7 +58,7 @@ function order() {
   items.forEach(i => {
     if (i.qty > 0) msg += `${i.name} x ${i.qty}\n`;
   });
-  msg += `รวม ${total.textContent} บาท`;
+  msg += `รวม ${totalEl.textContent} บาท`;
   alert(msg);
 }
 
