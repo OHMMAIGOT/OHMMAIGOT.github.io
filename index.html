@@ -14,15 +14,14 @@
 
 <h2>🍢 ร้านหมูปิ้ง</h2>
 
-<!-- เพิ่มเมนู -->
-<h3>➕ เพิ่มเมนู</h3>
+<!-- เพิ่มเมนู (เจ้าของร้าน) -->
+<h3>🔐 เพิ่มเมนู (เฉพาะเจ้าของ)</h3>
 <input id="name" placeholder="ชื่อเมนู">
 <input id="price" type="number" placeholder="ราคา">
-<button onclick="addItem()">เพิ่ม</button>
+<button onclick="addItem()">เพิ่มเมนู</button>
 
 <hr>
 
-<!-- เมนู -->
 <div id="menu"></div>
 
 <hr>
@@ -30,8 +29,10 @@
 <button onclick="order()">สั่งซื้อ</button>
 
 <script>
-const items = [];
+/* 🔐 ตั้งรหัสผ่านตรงนี้ */
+const OWNER_PASSWORD = "414428";
 
+const items = [];
 const menu = document.getElementById("menu");
 const total = document.getElementById("total");
 
@@ -64,6 +65,13 @@ function change(i, n) {
 }
 
 function addItem() {
+  const pass = prompt("กรุณาใส่รหัสเจ้าของร้าน");
+
+  if (pass !== OWNER_PASSWORD) {
+    alert("❌ รหัสผ่านไม่ถูกต้อง");
+    return;
+  }
+
   const name = document.getElementById("name").value;
   const price = Number(document.getElementById("price").value);
 
