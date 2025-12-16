@@ -1,39 +1,95 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-  <meta charset="UTF-8">
-  <title>ขายหมูปิ้ง 🍢</title>
-  <style>
-    body { font-family: sans-serif; text-align: center; padding: 40px }
-    button { font-size: 20px; padding: 10px 20px }
-  </style>
+<meta charset="UTF-8">
+<title>ร้านหมูปิ้ง</title>
+<style>
+  body { font-family: sans-serif; max-width: 420px; margin: auto }
+  .item { display: flex; justify-content: space-between; margin: 8px 0 }
+  button { padding: 4px 8px }
+  input { padding: 4px; width: 100px }
+</style>
 </head>
 <body>
 
-<h1>🍢 หมูปิ้งไม้ละ 10 บาท</h1>
+<h2>🍢 ร้านหมูปิ้ง</h2>
 
-<button onclick="qty--">-</button>
-<span id="q">1</span>
-<button onclick="qty++">+</button>
+<!-- เพิ่มเมนู -->
+<h3>➕ เพิ่มเมนู</h3>
+<input id="name" placeholder="ชื่อเมนู">
+<input id="price" type="number" placeholder="ราคา">
+<button onclick="addItem()">เพิ่ม</button>
 
-<p>รวม: <span id="price">10</span> บาท</p>
+<hr>
 
+<!-- เมนู -->
+<div id="menu"></div>
+
+<hr>
+<p>รวมทั้งหมด: <b><span id="total">0</span></b> บาท</p>
 <button onclick="order()">สั่งซื้อ</button>
 
 <script>
-let qty = 1;
-const q = document.getElementById("q");
-const price = document.getElementById("price");
+const items = [];
 
-setInterval(() => {
-  if (qty < 1) qty = 1;
-  q.textContent = qty;
-  price.textContent = qty * 10;
-}, 100);
+const menu = document.getElementById("menu");
+const total = document.getElementById("total");
+
+function render() {
+  menu.innerHTML = "";
+  let sum = 0;
+
+  items.forEach((item, i) => {
+    sum += item.qty * item.price;
+
+    menu.innerHTML += `
+      <div class="item">
+        ${item.name} (${item.price}฿)
+        <div>
+          <button onclick="change(${i}, -1)">-</button>
+          ${item.qty}
+          <button onclick="change(${i}, 1)">+</button>
+        </div>
+      </div>
+    `;
+  });
+
+  total.textContent = sum;
+}
+
+function change(i, n) {
+  items[i].qty += n;
+  if (items[i].qty < 0) items[i].qty = 0;
+  render();
+}
+
+function addItem() {
+  const name = document.getElementById("name").value;
+  const price = Number(document.getElementById("price").value);
+
+  if (!name || price <= 0) {
+    alert("กรอกชื่อเมนูและราคาให้ถูก");
+    return;
+  }
+
+  items.push({ name, price, qty: 0 });
+
+  document.getElementById("name").value = "";
+  document.getElementById("price").value = "";
+
+  render();
+}
 
 function order() {
-  alert("สั่งหมูปิ้ง " + qty + " ไม้");
+  let msg = "สั่งซื้อ:\n";
+  items.forEach(i => {
+    if (i.qty > 0) msg += `${i.name} x ${i.qty}\n`;
+  });
+  msg += `รวม ${total.textContent} บาท`;
+  alert(msg);
 }
+
+render();
 </script>
 
 </body>
